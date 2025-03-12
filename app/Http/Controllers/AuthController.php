@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthController extends Controller
 {
@@ -38,5 +40,35 @@ class AuthController extends Controller
     {
         $request->user()->tokens()->delete();
         return response()->json(['message' => 'Déconnexion réussie']);
+    }
+
+
+    public function changerMotDePasse(Request $request)
+    {
+        // Validation des champs
+        $request->validate([
+            'ancien_mdp' => 'required',
+            'nouveau_mdp' => 'required|min:6',
+        ]);
+
+        // Récupérer l'utilisateur authentifié
+        $user = Auth::user();
+
+        // Vérifier si l'ancien mot de passe est correct
+        if (!Hash::check($request->ancien_mdp, $user->password)) {
+            return response()->json([
+                'code' => 401,
+                'message' => 'Ancien mot de passe incorrect.'
+            ], 401);
+        }
+
+        // Mettre à jour le mot de passe
+        $user->password = Hash::make($request->nouveau_mdp);
+        $user->save();
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'Mot de passe mis à jour avec succès'
+        ], 200);
     }
 }

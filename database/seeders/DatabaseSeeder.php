@@ -15,6 +15,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(UserSeeder::class);
+        $this->call(EleveSeeder::class);
+        $this->call([PlanningSeeder::class,]);
+        $this->call([DisciplineSeeder::class,]);
+        $this->call(EvaluationFaiteSeeder::class);
+        $this->call(EvaluationProgrammeeSeeder::class);
+        $this->call(EmploiDuTempsSeeder::class);
+        $this->call(ListeAbsenceRetardSeeder::class);
+        $this->call(MoyenneSemestriellesSeeder::class);
+        $this->call(BulletinSemestrielSeeder::class);
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

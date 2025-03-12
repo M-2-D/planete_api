@@ -18,7 +18,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
         'ien', // Ajout de l'IEN
         'password',
     ];
@@ -42,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function plannings()
+    {
+        return $this->hasMany(Planning::class);
+    }
 }

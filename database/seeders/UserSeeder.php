@@ -10,7 +10,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'nom' => 'Mame Diarra SIMEN',
+            'nom' => ' SIMEN',
+            'prenom' => 'Mame Diarra',
             'ien' => '12345',
             'password' => Hash::make('passer'),
         ]);

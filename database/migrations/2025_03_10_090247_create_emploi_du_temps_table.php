@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('emploi_du_temps', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('prenom');
-            $table->string('ien')->unique(); // Ajout de l'IEN unique
-            //$table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('eleve_id')->constrained()->onDelete('cascade');
+            $table->string('date'); 
+            $table->string('discipline'); 
+            $table->string('heure'); 
+            $table->string('professeur'); 
+            $table->string('salle'); 
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('emploi_du_temps');
     }
 };
